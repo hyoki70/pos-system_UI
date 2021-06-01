@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <title>eelテスト</title>
+        <link rel="stylesheet" href="./style.css">
+    </head>
+    <body>
+        <h2>pos-system</h2>
+        マスターCSVファイル名:<input id="csv_name" type="text"></input><br/>
+        商品コード:<input id="input_item_code" type="text"></input><br/>
+        注文個数:<input id="input_item_count" type="text"></input>
+        <button id="order_input">入力</button>
+        <button id="order_fin">注文完了</button><br/>
+        <textarea class="view_area" id="order_view"> </textarea><br/><br/>
+        お預かり金額:<input id="pyment_money" type="text"></input>
+        <button id="pyment_input">会計</button><br/>
+        <textarea class="view_area" id="pyment_view"> </textarea><br/>      
+
+        <script type="text/javascript" src="./eel.js"></script>
+        <script>
+
+            order_input.addEventListener('click', () => {
+                if(csv_name.value== ""){
+                    alert("csvファイル名を入力してください")
+                }
+                else if(input_item_code.value== ""){
+                    alert("商品コードを入力してください")
+                }
+                else if(input_item_count.value==""){
+                    alert("注文個数を入力してください")
+                }
+                else{
+                    code_count=eel.pos_system_order(input_item_code.value,input_item_count.value,csv_name.value)
+                }
+            })
+
+            eel.expose(view_log_js)
+            function view_log_js(text){
+                order_view.value += text + "\n"
+            }
+
+            eel.expose(erase_input)
+            function erase_input(){
+                input_item_code.value=""
+                input_item_count.value=""
+            }
+        </script>
+    </body>
+</html>
